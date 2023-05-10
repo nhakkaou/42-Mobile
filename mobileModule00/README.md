@@ -25,3 +25,7 @@ In this exercise, you will modify the previous project to display "Hello World!"
 ### Exercise 02: Moar Buttons
 
 In this exercise, you will create a new project called "calculator_proj" and display an AppBar at the top of the screen with the title "Calculator". You will also display two text fields (one for displaying the expression and one for displaying the result) and several buttons. You must add debug to display the text of each button in the debug console when pressed. Once all the buttons have been properly set, you will make sure the display is suitable for all devices.
+
+<p align="center">
+  <img width="400" src="assets/calculator.png">
+</p>
