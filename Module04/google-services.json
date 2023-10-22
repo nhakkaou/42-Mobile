@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "910353348664",
+    "project_id": "diaryapp-290f4",
+    "storage_bucket": "diaryapp-290f4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:910353348664:android:539fe689e8af4658b64ecd",
+        "android_client_info": {
+          "package_name": "com.nhakkaou.diaryapp42"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "910353348664-auuoma0cnipgg5kb26j50p16ef3pcsp6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtxCkLoOMn6c7uximqKcZNMLZUge0RTD0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "910353348664-auuoma0cnipgg5kb26j50p16ef3pcsp6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "910353348664-14pqn4g4720vgk99hsuma5onccim2tvv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.anonymous.mobileWeatherApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
