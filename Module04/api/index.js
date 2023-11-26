@@ -13,7 +13,7 @@ import db from "./db";
 export const getNoteByEmail = async (userEmail, type) => {
   try {
     const notesRef = collection(db, "notes");
-    let q = query(notesRef, where("email", "==", "noureddine.hak@gmail.com"));
+    let q = query(notesRef, where("email", "==", userEmail));
     if (type && type != "All")
       q = query(q, where("type", "==", type.toLowerCase()));
     const querySnapshot = await getDocs(q);

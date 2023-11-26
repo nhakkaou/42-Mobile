@@ -18,12 +18,12 @@ import { TextInput } from "react-native";
 import { addNote, updateNote } from "../api";
 import SelectType from "../components/SelectType";
 import { DiaryContext } from "../context";
-const handleHead = ({ tintColor }) => (
-  <Text style={{ color: tintColor }}>H1</Text>
-);
-const SaveNote = async ({ id, newTitle, newContent, newType, email }) => {
+import moment from "moment";
+// const handleHead = ({ tintColor }) => (
+//   <Text style={{ color: tintColor }}>H1</Text>
+// );
+const SaveNote = async ({ id, newTitle, newContent, newType, email, date }) => {
   try {
-    console.log({ title: newTitle, content: newContent, type: newType });
     if (newContent === "" || newTitle === "") return;
     id == ""
       ? await addNote({
@@ -31,7 +31,7 @@ const SaveNote = async ({ id, newTitle, newContent, newType, email }) => {
           content: newContent,
           email: email,
           type: newType,
-          date: new Date().toUTCString(),
+          date: new Date(date) || moment().format("YYYY-MM-DD"),
         })
       : await updateNote(id, {
           title: newTitle,
@@ -42,11 +42,10 @@ const SaveNote = async ({ id, newTitle, newContent, newType, email }) => {
     return;
   } catch (e) {
     console.log(e);
-    alert("ERROR! Try Again");
   }
 };
 export default AddNewNote = ({ route, navigation }) => {
-  const { id, content, title = "Title", type = "none" } = route.params;
+  const { id, content, title = "Title", type = "none", date } = route.params;
   const [newContent, setContent] = useState(content);
   const [newTitle, setTitle] = useState(title);
   const [newType, setType] = useState(type);
@@ -74,6 +73,7 @@ export default AddNewNote = ({ route, navigation }) => {
                 newContent,
                 newType,
                 email: userInfos?.email,
+                date,
               }).then(() => navigation.goBack()),
           },
         ]
@@ -123,7 +123,7 @@ export default AddNewNote = ({ route, navigation }) => {
           actions.insertOrderedList,
           actions.keyboard,
         ]}
-        iconMap={{ [actions.heading1]: handleHead }}
+        // iconMap={{ [actions.heading1]: handleHead }}
       />
     </SafeAreaView>
   );
