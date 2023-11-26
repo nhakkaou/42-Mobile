@@ -17,8 +17,6 @@ export const getNoteByEmail = async (userEmail, date) => {
   try {
     const notesRef = collection(db, "notes");
     let q = query(notesRef, where("email", "==", userEmail));
-    console.log("Date", date);
-
     if (date) q = query(q, where("date", "==", new Date(date)));
 
     const querySnapshot = await getDocs(q);
@@ -44,7 +42,6 @@ export const deleteNote = async (id) => {
 export const addNote = async (newNote) => {
   try {
     let { title, content, email, type, date } = newNote;
-    console.log(date);
     const result = await addDoc(collection(db, "notes"), {
       title,
       content,
@@ -61,6 +58,21 @@ export const addUser = async (user) => {
   try {
     const result = await addDoc(collection(db, "user"), user);
     return result;
+  } catch (error) {
+    console.log("Error adding note:", error);
+    throw error; // Rethrow the error to handle it in the caller
+  }
+};
+export const getUser = async (email) => {
+  try {
+    const notesRef = collection(db, "user");
+    let q = query(notesRef, where("email", "==", email));
+    const result = await getDocs(q);
+    const entries = result.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    return entries;
   } catch (error) {
     console.log("Error adding note:", error);
     throw error; // Rethrow the error to handle it in the caller
@@ -109,7 +121,6 @@ export const geTypeData = async (userEmail) => {
     }, {});
 
     const totalEntries = allEntries.length;
-    console.log(Object.entries(types));
     const typesWithPercentage = Object.entries(types).map((item) => ({
       type: item[0],
       count: item[1],

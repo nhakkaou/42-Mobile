@@ -2,7 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createContext, useEffect, useState } from "react";
 import { getUserDataByToken } from "../api/AuthGoogle";
 import { useNavigation } from "@react-navigation/native";
-import { addUser } from "../api";
+import { addUser, getUser } from "../api";
 
 const DiaryContext = createContext();
 
@@ -29,7 +29,10 @@ const DiaryProvider = ({ children }) => {
   const addUserTodb = async (user) => {
     try {
       setUser(user);
-      await addUser(user);
+      console.log(user);
+      const UserExiste = await getUser(user.email);
+      console.log(UserExiste);
+      if (!UserExiste || UserExiste?.length == 0) await addUser(user);
     } catch (e) {
       console.log("AddUser Error:", e);
     }

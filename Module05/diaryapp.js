@@ -22,16 +22,12 @@ function NotesScreen() {
         options={{ headerShown: false }}
         component={Notes}
       />
-      <Stack.Screen
-        name="AddNote"
-        options={{ headerShown: false }}
-        component={AddNote}
-      />
     </Stack.Navigator>
   );
 }
 function App() {
   const Tab = createMaterialTopTabNavigator();
+  const Stack = createStackNavigator();
   const screenOptions = {
     tabBarStyle: { backgroundColor: "transparent" },
     tabBarLabelStyle: { fontSize: 12, fontWeight: 800 },
@@ -81,6 +77,12 @@ export default function Main() {
             name="Home"
             options={{ headerShown: false }}
             component={App}
+          />
+          <Stack.Screen
+            name="AddNote"
+            options={{ headerShown: false }}
+            component={AddNote}
+            initialParams={{ id: "" }}
           />
         </Stack.Navigator>
       </DiaryProvider>

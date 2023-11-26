@@ -8,9 +8,9 @@ import {
   View,
 } from "react-native";
 
-import { getUserDataByToken, useGoogleOauth } from "../api/AuthGoogle";
+import { useGoogleOauth } from "../api/AuthGoogle";
 import { DiaryContext } from "../context";
-import { addUser } from "../api";
+
 const Login = ({ navigation }) => {
   const { addUserTodb } = useContext(DiaryContext);
   const [GoogleRequest, GoogleuserInfos, GooglePromptAsync] = useGoogleOauth();

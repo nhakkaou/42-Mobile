@@ -8,6 +8,7 @@ import {
   ScrollView,
   TouchableOpacity,
   SafeAreaView,
+  RefreshControl,
 } from "react-native";
 import { DiaryContext } from "../context";
 import { LinearGradient } from "expo-linear-gradient";
@@ -22,14 +23,17 @@ export default Profile = ({ navigation }) => {
   const [statistics, setStatistics] = useState([]);
   const [lastNotes, setLast] = useState([]);
   const [visibleDelete, setVisibleDelete] = useState();
-  console.log(statistics);
+  const [refreshing, setRefresh] = useState(false);
+
+  const getData = async () => {
+    setRefresh(true);
+    const dataPercent = await geTypeData(userInfos?.email);
+    setStatistics([...dataPercent]);
+    const dataLast = await getLastTwoEntries(userInfos?.email);
+    setLast([...dataLast]);
+    setRefresh(false);
+  };
   useEffect(() => {
-    const getData = async () => {
-      const dataPercent = await geTypeData(userInfos?.email);
-      setStatistics([...dataPercent]);
-      const dataLast = await getLastTwoEntries(userInfos?.email);
-      setLast([...dataLast]);
-    };
     getData();
   }, [userInfos.email]);
   const logout = async () => {
@@ -56,7 +60,11 @@ export default Profile = ({ navigation }) => {
         style={styles.image}
       />
       <SafeAreaView style={{ flex: 1 }}>
-        <ScrollView>
+        <ScrollView
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={getData} />
+          }
+        >
           <LinearGradient
             style={styles.gradient}
             locations={[0.01, 1]}
@@ -116,7 +124,10 @@ export default Profile = ({ navigation }) => {
                   >
                     <Text style={styles.text}>{item.type}</Text>
                     <Text style={[styles.text, { color: "#27B5EE" }]}>
-                      {isNaN(item.percentage) ? 0 : item.percentage} %
+                      {isNaN(item.percentage)
+                        ? 0
+                        : Number(item.percentage).toFixed(1)}{" "}
+                      %
                     </Text>
                   </View>
                 ))}
